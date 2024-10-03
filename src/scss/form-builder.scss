@@ -1,0 +1,90 @@
+// Variables
+$side-panel-width: 250px;
+$main-panel-padding: 20px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+// Side Panel
+.formcomponents {
+  width: 40%;
+  max-width: $side-panel-width;
+  height: 100%;
+  @include flex-center;
+  flex-direction: column;
+  padding: 10px;
+  // box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+// Main Panel
+.formarea {
+  flex-grow: 1;
+  padding: $main-panel-padding;
+  height: 50hv;
+  background-color: #ffffff;
+  @include flex-center;
+  flex-direction: column;
+}
+
+// Container
+#formbuilder {
+  display: flex;
+  height: 70vh;
+}
+
+#formbuilder .formarea {
+  border: dashed 1px #ddd;
+  padding: 16px;
+}
+#formbuilder .formarea {
+  background-color: #fff;
+}
+
+.control.draggable-control {
+  padding: 6px;
+  padding-left: 10px;
+  color: black;
+  border: 1px solid #5f5f5f;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  width: 100%;
+  max-width: $side-panel-width;
+  cursor: move;
+}
+
+.control.draggable-control:hover {
+  border: 1px solid #444444;
+}
+
+#formarea li {
+  height: 1.5em;
+  line-height: 1.2em;
+}
+.ui-state-highlight {
+  // height: 1.5em;
+  line-height: 1.2em;
+  box-shadow: none;
+  height: 0;
+  width: 100%;
+  background: radial-gradient(ellipse at center, rgba(84, 84, 84, 1) 0%, rgba(0, 0, 0, 0) 75%);
+  border: 0 none;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  visibility: visible;
+  overflow: hidden;
+  margin: 1px 0 3px;
+}
+
+.formarea-control {
+  padding: 6px;
+  padding-left: 10px;
+  color: black;
+  border: 1px solid #5f5f5f;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  width: 100%;
+  cursor: move;
+}
