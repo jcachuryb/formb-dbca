@@ -3,6 +3,7 @@
  */
 const path = require('path');
 const fs = require('fs');
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
@@ -27,7 +28,7 @@ const htmlPluginEntries = templateFiles.map(
       filename: template.output,
       template: path.resolve(environment.paths.source, template.input),
       favicon: path.resolve(environment.paths.source, 'images', 'favicon.ico'),
-    })
+    }),
 );
 
 module.exports = {
@@ -107,6 +108,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),

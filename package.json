@@ -1,6 +1,6 @@
 {
-  "author": "WeAreAthlon <hello@weareathlon.com> (https://www.weareathlon.com)",
-  "name": "@weareathlon/frontend-webpack-boilerplate",
+  "author": "Juan Achury",
+  "name": "formuilder-dbca",
   "version": "5.18.0",
   "description": "Starter project template boilerplate based on Webpack with SASS/PostCSS and babel ES6/7 support.",
   "homepage": "https://github.com/WeAreAthlon/frontend-webpack-boilerplate#readme",
@@ -8,17 +8,23 @@
     "last 2 versions",
     "> 5%"
   ],
-  "bugs": {
-    "url": "https://github.com/WeAreAthlon/frontend-webpack-boilerplate/issues",
-    "email": "plamen@athlonsofia.com"
+  "target": "web",
+  "scripts": {
+    "build": "webpack --config configuration/webpack.dev.config.js --mode=development",
+    "watch": "webpack --config configuration/webpack.dev.config.js --mode=development --watch",
+    "bundle": "npm install && npm run watch",
+    "start": "npm run dev",
+    "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
+    "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
+    "lint:sass": "sass-lint -v -q",
+    "lint:js": "eslint --ext .js src/js/",
+    "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
   },
-  "contributors": [
-    {
-      "name": "Plamen Nikolov",
-      "email": "me@pnikoloff.com",
-      "url": "https://pnikoloff.com"
-    }
-  ],
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.0",
+    "webpack-node-externals": "^3.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.0",
@@ -68,17 +74,5 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:WeAreAthlon/frontend-webpack-boilerplate.git"
-  },
-  "scripts": {
-    "build": "webpack --config configuration/webpack.dev.config.js --mode=development",
-    "watch": "webpack --config configuration/webpack.dev.config.js --mode=development --watch",
-    "bundle": "npm install && npm run watch",
-    "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
-    "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
-    "lint:sass": "sass-lint -v -q",
-    "lint:js": "eslint --ext .js src/js/",
-    "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
-  },
-  "target": "web",
-  "dependencies": {}
+  }
 }
