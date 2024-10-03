@@ -48,16 +48,17 @@ $main-panel-padding: 20px;
   padding: 6px;
   padding-left: 10px;
   color: black;
-  border: 1px solid #5f5f5f;
-  background-color: #f5f5f5;
-  border-radius: 6px;
+  border: 2px solid #e3e3e3;
+  background-color: #fff;
+  border-radius: 4px;
   width: 100%;
   max-width: $side-panel-width;
   cursor: move;
+  margin-bottom: 5px;
 }
 
 .control.draggable-control:hover {
-  border: 1px solid #444444;
+  border: 1px solid #707070;
 }
 
 #formarea li {
@@ -82,9 +83,33 @@ $main-panel-padding: 20px;
   padding: 6px;
   padding-left: 10px;
   color: black;
-  border: 1px solid #5f5f5f;
-  background-color: #f5f5f5;
   border-radius: 6px;
   width: 100%;
   cursor: move;
+}
+.formarea-control {
+  label {
+    padding-top: calc(0.375rem + 1px);
+    padding-bottom: calc(0.375rem + 1px);
+    margin-bottom: 0;
+    font-size: medium;
+    line-height: 1.4;
+  }
+
+  input[type='text'],
+  select {
+    display: block;
+    width: 100%;
+    height: calc(1.4em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #828980;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
 }

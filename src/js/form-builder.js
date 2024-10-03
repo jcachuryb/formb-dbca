@@ -1,11 +1,8 @@
 /* eslint-disable prefer-spread */
 
 import LayoutController from './layout';
-const CONTROL_TYPES = {
-  INPUT_CONTROL: 'input-control',
-  SELECT: 'select',
-  CHECK_BOX: 'checkbox',
-};
+
+import { FORM_CONTROLS } from '../controls/form-controls';
 
 /* eslint-disable no-plusplus */
 function FormBuilder(element, settings, $) {
@@ -38,11 +35,7 @@ function FormBuilder(element, settings, $) {
 
 FormBuilder.prototype.init = function () {
   const _ = this;
-  _.layout.initialLayout([
-    { label: 'Input Text', type: CONTROL_TYPES.INPUT_CONTROL },
-    { label: 'Select', type: CONTROL_TYPES.SELECT },
-    { label: 'Checkbox', type: CONTROL_TYPES.CHECK_BOX },
-  ]);
+  _.layout.initialLayout(FORM_CONTROLS);
 };
 
 jQuery.fn.formBuilder = function (...args) {

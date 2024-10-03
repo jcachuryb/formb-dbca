@@ -1,15 +1,9 @@
 import Checkbox from './elements/checkbox';
 import InputElement from './elements/input-control';
 import SelectElement from './elements/select-control';
+import { CONTROL_TYPES } from './control-utils';
 
-// constants
-export const CONTROL_TYPES = {
-  INPUT_CONTROL: 'input-control',
-  SELECT: 'select',
-  CHECK_BOX: 'checkbox',
-};
-
-export const registered_controls = {
+export const CONTROLS_STORE = {
   [CONTROL_TYPES.INPUT_CONTROL]: {
     name: 'Input Control',
     description: 'A simple input control',

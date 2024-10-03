@@ -1,3 +1,5 @@
+import { markup } from './utils';
+
 class Control {
   constructor(controlType) {
     this.controlType = controlType;
@@ -7,7 +9,7 @@ class Control {
   render(children = [], containerClass = '') {
     console.log('Render method called');
     // Implement rendering logic here
-    const container = markup('div', '', { class: this.rawSettings.containerClass });
+    const container = markup('div', '', { class: containerClass ?? this.rawSettings.containerClass });
     children.forEach((child) => {
       container.appendChild(child);
     });

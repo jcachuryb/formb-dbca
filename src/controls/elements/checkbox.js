@@ -1,9 +1,7 @@
 import Control from '../../js/control';
-const CONTROL_TYPES = {
-  INPUT_CONTROL: 'input-control',
-  SELECT: 'select',
-  CHECK_BOX: 'checkbox',
-};
+
+import { CONTROL_TYPES } from '../control-utils';
+
 const defaultSettings = {
   value: '',
   showLabel: true,
@@ -23,11 +21,12 @@ const defaultSettings = {
   width: '100%',
   height: '30px',
 };
+
 export default class Checkbox extends Control {
   constructor(options = defaultSettings.options, value = '') {
+    super(CONTROL_TYPES.CHECK_BOX);
     this.options = options;
     this.rawSettings = { ...defaultSettings, type, value };
-    super(CONTROL_TYPES.SELECT);
   }
 
   setValue(newValue) {

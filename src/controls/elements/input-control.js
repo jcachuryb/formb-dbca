@@ -1,11 +1,7 @@
-import { container } from 'webpack';
 import Control from '../../js/control';
 import { markup } from '../../js/utils';
-const CONTROL_TYPES = {
-  INPUT_CONTROL: 'input-control',
-  SELECT: 'select',
-  CHECK_BOX: 'checkbox',
-};
+
+import { CONTROL_TYPES } from '../control-utils';
 
 const inputTypes = {
   TEXT: 'text',
@@ -20,7 +16,7 @@ const defaultSettings = {
   type: 'text',
   value: '',
   showLabel: true,
-  label: '',
+  label: 'Input Text',
   labelPosition: 'top',
   placeholder: '',
   width: '100%',
@@ -29,11 +25,12 @@ const defaultSettings = {
 };
 
 export default class InputElement extends Control {
-  constructor(type = inputTypes.TEXT, value = '') {
+  constructor(type = inputTypes.TEXT, value = '', label = 'Input Text') {
+    super(CONTROL_TYPES.INPUT_CONTROL);
     this.type = type;
     this.value = value;
+    this.label = label;
     this.rawSettings = { ...defaultSettings, type, value };
-    super(CONTROL_TYPES.INPUT_CONTROL);
   }
 
   setValue(newValue) {
@@ -53,6 +50,6 @@ export default class InputElement extends Control {
     input.style.height = this.height;
     const label = document.createElement('label');
     label.innerHTML = this.label;
-    return super.render([label, input], 'formarea-control');
+    return super.render([label, input], defaultSettings.containerClass);
   }
 }

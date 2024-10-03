@@ -1,15 +1,10 @@
 import Control from '../../js/control';
-
-const CONTROL_TYPES = {
-  INPUT_CONTROL: 'input-control',
-  SELECT: 'select',
-  CHECK_BOX: 'checkbox',
-};
+import { CONTROL_TYPES } from '../control-utils';
 
 const defaultSettings = {
   value: '',
   showLabel: true,
-  label: '',
+  label: 'Select an option',
   labelPosition: 'top',
   options: [
     {
@@ -27,10 +22,11 @@ const defaultSettings = {
 };
 
 export default class SelectElement extends Control {
-  constructor(options = defaultSettings.options, value = '') {
-    this.options = options;
-    this.rawSettings = { ...defaultSettings, options, value };
+  constructor(options = defaultSettings.options, label = defaultSettings.label) {
     super(CONTROL_TYPES.SELECT);
+    this.label = label;
+    this.options = options;
+    this.rawSettings = { ...defaultSettings, options };
   }
 
   setValue(newValue) {
