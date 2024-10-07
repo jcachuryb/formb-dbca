@@ -37,9 +37,6 @@ class LayoutController {
       cursor: 'move',
       scroll: false,
       tolerance: 'pointer',
-      over: function (event, ui) {
-        // console.log('Over form');
-      },
       update: function (event, ui) {
         if (ui.sender) {
           ui.sender.sortable('cancel');
@@ -48,6 +45,15 @@ class LayoutController {
             const controlType = data.controlType;
             const { attr, props, controlClass } = CONTROLS_STORE[controlType];
             const elm = new controlClass(attr, props);
+            const nodeOffset = ui.offset.top;
+            const childNodes = this.childNodes;
+            for (let i = 0; i < childNodes.length; i++) {
+              const child = childNodes[i];
+              if (child.offsetTop > nodeOffset) {
+                this.insertBefore(elm.render(), child);
+                return;
+              }
+            }
             this.append(elm.render());
           } catch (error) {
             console.log("Couldn't append element", error);
@@ -55,15 +61,19 @@ class LayoutController {
         }
       },
     });
+    $(`.${formAreaSel}`).disableSelection();
 
     $(`.${controlsSel}`).sortable({
       helper: 'clone',
       cursor: 'move',
       scroll: false,
       tolerance: 'pointer',
+      placeholder: 'ui-state-highlight',
       connectWith: `.${formAreaSel}`,
     });
+
     this.loadFormControls(controls, this.controlsPanel);
+    $(`.${controlsSel}`).disableSelection();
   }
 
   loadFormControls(controls, parent) {

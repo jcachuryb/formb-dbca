@@ -65,15 +65,13 @@ $main-panel-padding: 20px;
   height: 1.5em;
   line-height: 1.2em;
 }
-.ui-state-highlight {
-  // height: 1.5em;
+#formarea div.ui-sortable-placeholder.ui-state-highlight {
+  height: 2em;
   line-height: 1.2em;
   box-shadow: none;
-  height: 0;
+  border: dashed 1px #ddd;
+  background: #f7f7f7;
   width: 100%;
-  background: radial-gradient(ellipse at center, rgba(84, 84, 84, 1) 0%, rgba(0, 0, 0, 0) 75%);
-  border: 0 none;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   visibility: visible;
   overflow: hidden;
   margin: 1px 0 3px;
