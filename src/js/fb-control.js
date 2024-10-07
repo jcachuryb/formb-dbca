@@ -27,9 +27,9 @@ export default class Control {
 
   render(children = [], containerClass = '') {
     // Implement rendering logic here
-    const container = markup('div', '', { id: this.id, class: containerClass ?? this.rawSettings.containerClass });
-    children.forEach((child) => {
-      container.appendChild(child);
+    const container = markup('div', children, {
+      id: this.id,
+      class: containerClass ?? this.props.containerClass,
     });
     return container;
   }

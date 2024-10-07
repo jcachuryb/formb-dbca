@@ -1,9 +1,6 @@
-import Control from '../../js/fb-control';
 import InputControl from '../../js/fb-input-control';
-
 import { markup } from '../../js/utils';
-
-import { CONTROL_TYPES, INPUT_TYPES } from '../control-utils';
+import { ELEMENT_TYPES } from '../control-utils';
 
 const defaultSettings = {
   type: 'text',
@@ -17,11 +14,15 @@ const defaultSettings = {
 export default class InputElement extends InputControl {
   constructor(attr = {}, props = {}) {
     let _attr = Object.assign({}, defaultSettings, attr); // Merge default settings with user settings
-    super(_attr, props, CONTROL_TYPES.ELEMENT);
+    super(_attr, props, ELEMENT_TYPES.INPUT);
+    this.setup();
   }
 
   setup() {
     this.type = this.props.type || defaultSettings.type;
+    if (this.attr.type === 'text') {
+      this.attr['class'] = 'form-control';
+    }
   }
 
   render() {

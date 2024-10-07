@@ -1,5 +1,6 @@
 import Checkbox from './elements/checkbox';
 import InputElement from './elements/input-control';
+import RadioButton from './elements/radio-button';
 import SelectElement from './elements/select-control';
 
 // Input Element types
@@ -27,6 +28,7 @@ export const ELEMENT_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
   CHECK_BOX: 'checkbox',
+  RADIO: 'radio',
 
   DIVIDER: 'divider',
   ROW: 'row',
@@ -72,5 +74,17 @@ export const registered_controls = {
     },
 
     control: Checkbox,
+  },
+  [ELEMENT_TYPES.RADIO]: {
+    name: 'Radio Control',
+    description: 'A simple radio control',
+    icon: 'fa fa-font',
+    label: 'Select your options',
+    attributes: {
+      name: {
+        generate: true,
+      },
+    },
+    control: RadioButton,
   },
 };

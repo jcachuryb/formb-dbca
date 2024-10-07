@@ -2,6 +2,7 @@ import Checkbox from './elements/checkbox';
 import InputElement from './elements/input-control';
 import SelectElement from './elements/select-control';
 import { ELEMENT_TYPES } from './control-utils';
+import RadioButton from './elements/radio-button';
 
 export const CONTROLS_STORE = {
   [ELEMENT_TYPES.INPUT]: {
@@ -9,11 +10,11 @@ export const CONTROLS_STORE = {
     description: 'A simple input control',
     props: {
       label: 'Enter a value',
-      required: true,
     },
     attr: {
       type: 'text',
       placeholder: 'Enter a value',
+      required: true,
     },
     icon: 'fa fa-font',
     controlClass: InputElement,
@@ -39,5 +40,13 @@ export const CONTROLS_STORE = {
     attr: {},
     icon: 'fa fa-font',
     controlClass: Checkbox,
+  },
+  [ELEMENT_TYPES.RADIO]: {
+    name: 'Radio Control',
+    description: 'A simple radio control',
+    props: { options: [{ text: 'Radio Option 1' }, { text: 'Radio Option 2' }], labelClass: 'form-check-label' },
+    attr: {},
+    icon: 'fa fa-font',
+    controlClass: RadioButton,
   },
 };

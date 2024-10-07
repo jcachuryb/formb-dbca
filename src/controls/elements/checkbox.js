@@ -1,7 +1,7 @@
 import InputControl from '../../js/fb-input-control';
 import { generateRandomId, markup } from '../../js/utils';
 
-import { CONTROL_TYPES } from '../control-utils';
+import { ELEMENT_TYPES } from '../control-utils';
 
 const defaultSettings = {
   class: 'form-check-input',
@@ -14,7 +14,7 @@ export default class Checkbox extends InputControl {
   constructor(attr = { value: 'default' }, props = {}) {
     let _attr = Object.assign({}, defaultSettings, attr);
     let _props = Object.assign({}, defaultProps, props);
-    super(_attr, _props, CONTROL_TYPES.ELEMENT);
+    super(_attr, _props, ELEMENT_TYPES.CHECK_BOX);
     this.setup();
   }
 

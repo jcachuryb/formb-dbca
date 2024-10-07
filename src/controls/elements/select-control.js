@@ -1,6 +1,6 @@
 import InputControl from '../../js/fb-input-control';
 import { markup } from '../../js/utils';
-import { CONTROL_TYPES } from '../control-utils';
+import { ELEMENT_TYPES } from '../control-utils';
 
 const defaultSettings = {
   value: '',
@@ -35,12 +35,13 @@ export default class SelectElement extends InputControl {
 
   constructor(attr = {}, props = {}) {
     let _attr = Object.assign({}, defaultSettings, attr);
-    super(_attr, props, CONTROL_TYPES.ELEMENT);
+    super(_attr, props, ELEMENT_TYPES.SELECT);
     this.setup();
   }
 
   setup() {
     this.options = this.props.options || this.options;
+    this.attr['class'] = 'form-select';
   }
 
   setValue(newValue) {
