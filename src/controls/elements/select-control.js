@@ -67,8 +67,6 @@ export default class SelectElement extends InputControl {
       }
       selectEl.appendChild(optionEl);
     });
-    const _rendered = super.render();
-    _rendered.appendChild(selectEl);
-    return _rendered;
+    return super.render(selectEl);
   }
 }

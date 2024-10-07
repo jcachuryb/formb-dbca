@@ -5,6 +5,7 @@ import FBGroup from './fb-group';
 import { markup } from './utils';
 
 export default class InputControl extends Control {
+  container_class = 'formarea-control';
   constructor(attr, props, control_type) {
     super(attr, props, control_type || CONTROL_TYPES.ELEMENT);
     this.label = new Label(props['label'] || ''); // Default label
@@ -31,13 +32,15 @@ export default class InputControl extends Control {
     return attributes;
   }
 
-  render() {
-    const children = [];
+  render(children = []) {
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
     if (this.label) {
       const label = markup('label', this.label.text, this.label);
       children.push(label);
     }
 
-    return super.render([markup('div', children, { id: this.id })], 'formarea-control');
+    return super.render([markup('div', children, { id: this.id })], this.container_class);
   }
 }

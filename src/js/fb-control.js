@@ -17,7 +17,7 @@ export default class Control {
     this.props = props;
     this.events = {};
     if (!id) {
-      this.id = (this.controlType + '-' + generateRandomId()).toLowerCase();
+      this.id = (this.controlType.toLocaleLowerCase() + '-' + generateRandomId()).toLowerCase();
     }
   }
 
@@ -26,7 +26,6 @@ export default class Control {
   }
 
   render(children = [], containerClass = '') {
-    Z``;
     // Implement rendering logic here
     const container = markup('div', '', { id: this.id, class: containerClass ?? this.rawSettings.containerClass });
     children.forEach((child) => {

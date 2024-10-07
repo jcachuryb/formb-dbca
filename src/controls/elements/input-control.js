@@ -26,9 +26,6 @@ export default class InputElement extends InputControl {
 
   render() {
     const attributes = this.getAttributes();
-
-    const _rendered = super.render();
-    _rendered.append(markup('input', '', attributes));
-    return _rendered;
+    return super.render(markup('input', '', attributes));
   }
 }

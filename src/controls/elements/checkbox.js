@@ -1,56 +1,30 @@
-import Control from '../../js/fb-control';
+import InputControl from '../../js/fb-input-control';
+import { generateRandomId, markup } from '../../js/utils';
 
 import { CONTROL_TYPES } from '../control-utils';
 
 const defaultSettings = {
-  value: '',
-  showLabel: true,
-  label: '',
-  labelPosition: 'top',
-  options: [
-    {
-      value: '1',
-      text: 'Option 1',
-    },
-    {
-      value: '2',
-      text: 'Option 2',
-    },
-  ],
-  placeholder: '',
-  width: '100%',
-  height: '30px',
+  class: 'form-check-input',
 };
 
-export default class Checkbox extends Control {
-  constructor(options = defaultSettings.options, value = '') {
-    super(CONTROL_TYPES.CHECK_BOX);
-    this.options = options;
-    this.rawSettings = { ...defaultSettings, type, value };
+const defaultProps = {};
+
+export default class Checkbox extends InputControl {
+  id = 'cb-' + generateRandomId();
+  constructor(attr = { value: 'default' }, props = {}) {
+    let _attr = Object.assign({}, defaultSettings, attr);
+    let _props = Object.assign({}, defaultProps, props);
+    super(_attr, _props, CONTROL_TYPES.ELEMENT);
+    this.setup();
   }
 
-  setValue(newValue) {
-    this.value = newValue;
-  }
-
-  getValue() {
-    return this.value;
+  setup() {
+    this.options = this.props.options || this.options;
+    this.label.attr.for = this.id;
   }
 
   render() {
-    const selectEl = document.createElement('select');
-    this.options.forEach((option) => {
-      const optionEl = document.createElement('option');
-      optionEl.value = option.value;
-      optionEl.text = option.text;
-      selectEl.appendChild(optionEl);
-    });
-    const label = document.createElement('label');
-    label.innerHTML = this.label;
-    const container = markup('div', '', { class: 'formarea-control' });
-    container.appendChild(label);
-
-    container.appendChild(selectEl);
-    return container;
+    const inputElement = markup('input', '', { type: 'checkbox', id: this.id, ...this.attr });
+    return super.render(inputElement);
   }
 }

@@ -34,7 +34,8 @@ export const CONTROLS_STORE = {
   [ELEMENT_TYPES.CHECK_BOX]: {
     name: 'Checkbox Control',
     description: 'A simple checkbox control',
-    props: {},
+
+    props: { label: 'Checkbox' },
     attr: {},
     icon: 'fa fa-font',
     controlClass: Checkbox,
