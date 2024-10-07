@@ -1,7 +1,7 @@
 import Checkbox from './elements/checkbox';
-import InputElement from './elements/input-control';
+import InputElement from './elements/input-element';
 import RadioButton from './elements/radio-button';
-import SelectElement from './elements/select-control';
+import SelectElement from './elements/select-element';
 
 // Input Element types
 

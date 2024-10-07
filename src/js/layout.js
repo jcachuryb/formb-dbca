@@ -1,5 +1,5 @@
 import { registered_controls } from '../controls/control-utils';
-import InputElement from '../controls/elements/input-control';
+import InputElement from '../controls/elements/input-element';
 import { CONTROLS_STORE } from '../controls/toolbox-store';
 import FBElement from './fb-element';
 import { markup } from './utils';
