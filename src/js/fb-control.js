@@ -1,29 +1,38 @@
-import { markup } from './utils';
+import { generateRandomId, markup } from './utils';
 
-class Control {
-  constructor(controlType) {
+export default class Control {
+  id = '';
+
+  attr = {};
+
+  props = {};
+
+  className = '';
+
+  controlType = 'BLOCK';
+
+  constructor(attr, props, controlType, id = null) {
     this.controlType = controlType;
+    this.attr = attr;
+    this.props = props;
     this.events = {};
+    if (!id) {
+      this.id = (this.controlType + '-' + generateRandomId()).toLowerCase();
+    }
+  }
+
+  setup() {
+    console.log('Setup method called');
   }
 
   render(children = [], containerClass = '') {
-    console.log('Render method called');
+    Z``;
     // Implement rendering logic here
-    const container = markup('div', '', { class: containerClass ?? this.rawSettings.containerClass });
+    const container = markup('div', '', { id: this.id, class: containerClass ?? this.rawSettings.containerClass });
     children.forEach((child) => {
       container.appendChild(child);
     });
     return container;
-  }
-
-  create() {
-    console.log('Create method called');
-    // Implement creation logic here
-  }
-
-  destroy() {
-    console.log('Destroy method called');
-    // Implement destruction logic here
   }
 
   on(event, handler) {
@@ -48,5 +57,3 @@ class Control {
     this.events[event].forEach((handler) => handler(...args));
   }
 }
-
-export default Control;

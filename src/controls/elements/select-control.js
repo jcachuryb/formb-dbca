@@ -1,4 +1,5 @@
-import Control from '../../js/control';
+import InputControl from '../../js/fb-input-control';
+import { markup } from '../../js/utils';
 import { CONTROL_TYPES } from '../control-utils';
 
 const defaultSettings = {
@@ -6,27 +7,40 @@ const defaultSettings = {
   showLabel: true,
   label: 'Select an option',
   labelPosition: 'top',
-  options: [
-    {
-      value: '1',
-      text: 'Option 1',
-    },
-    {
-      value: '2',
-      text: 'Option 2',
-    },
-  ],
+
   placeholder: '',
   width: '100%',
   height: '30px',
 };
 
-export default class SelectElement extends Control {
-  constructor(options = defaultSettings.options, label = defaultSettings.label) {
-    super(CONTROL_TYPES.SELECT);
-    this.label = label;
-    this.options = options;
-    this.rawSettings = { ...defaultSettings, options };
+const basicOptions = [
+  {
+    value: '',
+    text: '-- Select an option --',
+    disabled: true,
+    selected: true,
+  },
+  {
+    value: '1',
+    text: 'Option 1',
+  },
+  {
+    value: '2',
+    text: 'Option 2',
+  },
+];
+
+export default class SelectElement extends InputControl {
+  options = basicOptions;
+
+  constructor(attr = {}, props = {}) {
+    let _attr = Object.assign({}, defaultSettings, attr);
+    super(_attr, props, CONTROL_TYPES.ELEMENT);
+    this.setup();
+  }
+
+  setup() {
+    this.options = this.props.options || this.options;
   }
 
   setValue(newValue) {
@@ -38,15 +52,23 @@ export default class SelectElement extends Control {
   }
 
   render() {
-    const selectEl = document.createElement('select');
+    const attributes = this.getAttributes();
+    const selectEl = markup('select', '', attributes);
     this.options.forEach((option) => {
       const optionEl = document.createElement('option');
-      optionEl.value = option.value;
-      optionEl.text = option.text;
+      for (const key in option) {
+        if (option.hasOwnProperty(key)) {
+          if (key === 'text') {
+            optionEl.innerHTML = option[key];
+            continue;
+          }
+          optionEl.setAttribute(key, option[key]);
+        }
+      }
       selectEl.appendChild(optionEl);
     });
-    const label = document.createElement('label');
-    label.innerHTML = this.label;
-    return super.render([label, selectEl], 'formarea-control');
+    const _rendered = super.render();
+    _rendered.appendChild(selectEl);
+    return _rendered;
   }
 }

@@ -1,6 +1,6 @@
 // constants
 module.exports = {
-  INPUT_CONTROL: 'input-control',
+  INPUT: 'input-control',
   SELECT: 'select',
   CHECK_BOX: 'checkbox',
 };

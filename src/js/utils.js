@@ -1,4 +1,12 @@
 /**
+ * Generate a random id of up to 10 characters
+ * @return {string} random id
+ */
+export const generateRandomId = () => {
+  return Math.random().toString(36).slice(2, 10);
+};
+
+/**
  * recursively flatten a nested array
  * @param {Array} arr to be flattened
  * @return {Array} flattened array

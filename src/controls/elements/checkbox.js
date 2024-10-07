@@ -1,4 +1,4 @@
-import Control from '../../js/control';
+import Control from '../../js/fb-control';
 
 import { CONTROL_TYPES } from '../control-utils';
 

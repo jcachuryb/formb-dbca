@@ -1,12 +1,15 @@
 import { registered_controls } from '../controls/control-utils';
 import InputElement from '../controls/elements/input-control';
+import { CONTROLS_STORE } from '../controls/toolbox-store';
+import FBElement from './fb-element';
 import { markup } from './utils';
 
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
 class LayoutController {
-  constructor(builderElement) {
+  constructor(builderElement, body) {
     this.b = builderElement;
+    this.body = body;
     this.formArea = undefined;
     this.controlsPanel = undefined;
   }
@@ -19,7 +22,9 @@ class LayoutController {
       class: formAreaSel,
       'data-content': 'Drag a field from the right to this area',
     });
+
     this.b.append(formbuilder);
+
     const formbuilderElement = $('#formbuilder');
     formbuilderElement.append(controlsPanel);
     formbuilderElement.append(builderArea);
@@ -38,13 +43,15 @@ class LayoutController {
       update: function (event, ui) {
         if (ui.sender) {
           ui.sender.sortable('cancel');
-
-          const controlType = ui.item[0].dataset.controlType;
-          const _control = registered_controls[controlType].control;
-          const element = new _control();
-          let control = markup('div', element.render(), { class: 'formarea-control' });
-          // control.appendChild();
-          this.append(control);
+          try {
+            const data = ui.item[0].dataset;
+            const controlType = data.controlType;
+            const { attr, props, controlClass } = CONTROLS_STORE[controlType];
+            const elm = new controlClass(attr, props);
+            this.append(elm.render());
+          } catch (error) {
+            console.log("Couldn't append element", error);
+          }
         }
       },
     });

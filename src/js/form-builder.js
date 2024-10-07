@@ -2,7 +2,7 @@
 
 import LayoutController from './layout';
 
-import { FORM_CONTROLS } from '../controls/form-controls';
+import { FORM_CONTROLS } from '../controls/toolbox';
 
 /* eslint-disable no-plusplus */
 function FormBuilder(element, settings, $) {
@@ -21,7 +21,10 @@ function FormBuilder(element, settings, $) {
   dataSettings = $(element).data('juanchi') || {};
 
   _.$builder = $(element);
-  _.layout = new LayoutController(_.$builder);
+
+  _.body = {};
+
+  _.layout = new LayoutController(_.$builder, _.body);
 
   _.$controlFactory = undefined;
   _.options = $.extend({}, _.defaults, settings, dataSettings);
