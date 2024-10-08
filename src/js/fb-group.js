@@ -1,6 +1,5 @@
-import { CONTROL_TYPES, registered_controls } from '../controls/control-utils';
+import { CONTROL_TYPES } from '../controls/control-utils';
 import Control from './fb-control';
-import { markup } from './utils';
 
 export default class FBGroup extends Control {
   children = []; // Control elements

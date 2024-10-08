@@ -1,4 +1,4 @@
-import InputControl from '../../js/fb-input-control';
+import InputControl from '../fb-input-control';
 import { markup } from '../../js/utils';
 import { ELEMENT_TYPES } from '../control-utils';
 

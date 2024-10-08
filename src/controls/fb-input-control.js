@@ -1,7 +1,7 @@
-import { CONTROL_TYPES, ELEMENT_TYPES } from '../controls/control-utils';
-import Label from '../controls/elements/basics/label';
-import Control from './fb-control';
-import { markup } from './utils';
+import { CONTROL_TYPES, ELEMENT_TYPES } from './control-utils';
+import Label from './elements/basics/label';
+import Control from '../js/fb-control';
+import { markup } from '../js/utils';
 
 function extractLabelProps(props = {}) {
   const labelProps = {};

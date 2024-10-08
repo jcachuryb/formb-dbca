@@ -1,7 +1,7 @@
 import { CONTROL_TYPES } from '../controls/control-utils';
 import Control from '../js/fb-control';
 import { generateRandomId, markup } from '../js/utils';
-const controlWrapperTemplate = require('../views/control-edition-wrapper.handlebars');
+import controlWrapperTemplate from '../views/control-edition-wrapper.handlebars';
 
 export default class ControlEdition extends Control {
   id = 'element-wrapper-' + generateRandomId();
@@ -10,7 +10,6 @@ export default class ControlEdition extends Control {
     super(attr, {}, CONTROL_TYPES.BLOCK);
   }
   render() {
-    // var template = Handlebars.compile(ContainerView);
     return markup(
       'div',
       controlWrapperTemplate({

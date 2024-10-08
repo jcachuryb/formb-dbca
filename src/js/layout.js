@@ -80,10 +80,10 @@ export default class LayoutController {
   }
 
   renderForm() {
-    // this.formArea.append(markup('div', 'Form Area', {}));
-    // const { attr, props, controlClass } = CONTROLS_STORE['input'];
-    // const elm = new controlClass(attr, props);
-    // formAreaRender(this.formArea, elm);
+    this.formArea.append(markup('div', 'Form Area', {}));
+    const { attr, props, controlClass } = CONTROLS_STORE['input'];
+    const elm = new controlClass(attr, props);
+    formAreaRender(this.formArea, elm);
   }
 }
 
