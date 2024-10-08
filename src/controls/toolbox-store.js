@@ -3,6 +3,7 @@ import InputElement from './elements/input-element';
 import SelectElement from './elements/select-element';
 import { ELEMENT_TYPES } from './utils/element-types';
 import RadioButton from './elements/radio-button';
+import { INPUT_TYPES } from './utils/input-types';
 
 export const CONTROLS_STORE = {
   [ELEMENT_TYPES.INPUT]: {
@@ -12,7 +13,7 @@ export const CONTROLS_STORE = {
       label: 'Enter a value',
     },
     attr: {
-      type: 'text',
+      type: INPUT_TYPES.TEXT,
       placeholder: 'Enter a value',
       required: true,
     },
@@ -26,7 +27,7 @@ export const CONTROLS_STORE = {
       label: 'Enter a value',
     },
     attr: {
-      type: 'number',
+      type: INPUT_TYPES.NUMBER,
       placeholder: 'Enter a value',
       required: true,
     },

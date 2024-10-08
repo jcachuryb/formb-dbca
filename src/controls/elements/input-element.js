@@ -1,6 +1,6 @@
 import InputControl from '../fb-input-control';
 import { markup } from '../../js/utils';
-import { ELEMENT_TYPES } from '../control-utils';
+import { INPUT_TYPES } from '../utils/input-types';
 
 const defaultSettings = {
   type: 'text',
@@ -14,13 +14,13 @@ const defaultSettings = {
 export default class InputElement extends InputControl {
   constructor(attr = {}, props = {}) {
     let _attr = Object.assign({}, defaultSettings, attr); // Merge default settings with user settings
-    super(_attr, props, ELEMENT_TYPES.INPUT);
+    super(_attr, props, _attr.type);
     this.setup();
   }
 
   setup() {
     this.type = this.props.type || defaultSettings.type;
-    if (this.attr.type === 'text') {
+    if ([INPUT_TYPES.TEXT, INPUT_TYPES.NUMBER].includes(this.attr.type)) {
       this.attr['class'] = 'form-control';
     }
   }
