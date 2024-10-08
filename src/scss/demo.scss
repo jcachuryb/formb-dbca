@@ -1,6 +1,6 @@
 body {
   background: $body-background-color;
-  color: $foreground-color;
+  color: $black;
   font-family: 'DINP-R', arial, serif;
   font-size: 1.3em;
 }
@@ -18,7 +18,7 @@ header {
   border-radius: 5px;
 
   small {
-    font-size: .5em;
+    font-size: 0.5em;
 
     img {
       display: inline;
@@ -69,14 +69,14 @@ main {
 }
 
 .badges {
-  line-height: .5em;
+  line-height: 0.5em;
 
   img {
     display: inline;
   }
 
   h6 {
-    font-size: .5em;
+    font-size: 0.5em;
   }
 }
 

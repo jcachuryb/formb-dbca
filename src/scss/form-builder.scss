@@ -33,7 +33,7 @@ $main-panel-padding: 20px;
 // Container
 #formbuilder {
   display: flex;
-  height: 70vh;
+  min-height: 60vh;
 }
 
 #formbuilder .formarea {
@@ -109,5 +109,30 @@ $main-panel-padding: 20px;
     border: 1px solid #ced4da;
     border-radius: 0;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 4px;
+  border-radius: 9px;
+  background: #f1f1f1;
+
+  .field-actions {
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  > .container {
+    position: relative;
+    padding: 10px;
+  }
+}
+
+.form-field.active-control {
+  .field-actions {
+    display: flex;
   }
 }

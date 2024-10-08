@@ -39,6 +39,7 @@ function FormBuilder(element, settings, $) {
 FormBuilder.prototype.init = function () {
   const _ = this;
   _.layout.initialLayout(FORM_CONTROLS);
+  _.layout.renderForm();
 };
 
 jQuery.fn.formBuilder = function (...args) {

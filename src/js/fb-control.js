@@ -25,6 +25,10 @@ export default class Control {
     console.log('Setup method called');
   }
 
+  getIdSelector() {
+    return `#${this.id}`;
+  }
+
   render(children = [], containerClass = '') {
     // Implement rendering logic here
     const container = markup('div', children, {

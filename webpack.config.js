@@ -74,6 +74,7 @@ module.exports = {
           filename: 'fonts/[name].[hash:6][ext]',
         },
       },
+      { test: /\.handlebars$/, loader: 'handlebars-loader' },
     ],
   },
   optimization: {

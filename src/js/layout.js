@@ -1,12 +1,10 @@
-import { registered_controls } from '../controls/control-utils';
-import InputElement from '../controls/elements/input-element';
 import { CONTROLS_STORE } from '../controls/toolbox-store';
-import FBElement from './fb-element';
+import ControlEdition from '../edition/control-edition';
 import { markup } from './utils';
 
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
-class LayoutController {
+export default class LayoutController {
   constructor(builderElement, body) {
     this.b = builderElement;
     this.body = body;
@@ -29,6 +27,7 @@ class LayoutController {
     formbuilderElement.append(controlsPanel);
     formbuilderElement.append(builderArea);
     this.formArea = $(`#${formAreaSel}`);
+
     this.controlsPanel = $(`#${controlsSel}`);
 
     $(`.${formAreaSel}`).sortable({
@@ -46,15 +45,7 @@ class LayoutController {
             const { attr, props, controlClass } = CONTROLS_STORE[controlType];
             const elm = new controlClass(attr, props);
             const nodeOffset = ui.offset.top;
-            const childNodes = this.childNodes;
-            for (let i = 0; i < childNodes.length; i++) {
-              const child = childNodes[i];
-              if (child.offsetTop > nodeOffset) {
-                this.insertBefore(elm.render(), child);
-                return;
-              }
-            }
-            this.append(elm.render());
+            formAreaRender(this, elm, nodeOffset);
           } catch (error) {
             console.log("Couldn't append element", error);
           }
@@ -87,6 +78,33 @@ class LayoutController {
       parent.append(controlElement);
     });
   }
+
+  renderForm() {
+    // this.formArea.append(markup('div', 'Form Area', {}));
+    // const { attr, props, controlClass } = CONTROLS_STORE['input'];
+    // const elm = new controlClass(attr, props);
+    // formAreaRender(this.formArea, elm);
+  }
 }
 
-export default LayoutController;
+function formAreaRender(formArea, elm, nodeOffset = null) {
+  const fbControlWrapper = new ControlEdition();
+  const _wrapper = fbControlWrapper.render();
+
+  $(_wrapper).find('.fb-wrapper-content').append(elm.render());
+
+  if (nodeOffset) {
+    const childNodes = formArea.childNodes;
+    for (let i = 0; i < childNodes.length; i++) {
+      const child = childNodes[i];
+      if (formArea.offsetTop > nodeOffset) {
+        formArea.insertBefore(_wrapper, child);
+        fbControlWrapper.addButtonEvents();
+        return;
+      }
+    }
+  }
+
+  formArea.append(_wrapper);
+  fbControlWrapper.addButtonEvents();
+}
