@@ -1,7 +1,7 @@
 import Checkbox from './elements/checkbox';
 import InputElement from './elements/input-element';
 import SelectElement from './elements/select-element';
-import { ELEMENT_TYPES } from './control-utils';
+import { ELEMENT_TYPES } from './utils/element-types';
 import RadioButton from './elements/radio-button';
 
 export const CONTROLS_STORE = {
@@ -13,6 +13,20 @@ export const CONTROLS_STORE = {
     },
     attr: {
       type: 'text',
+      placeholder: 'Enter a value',
+      required: true,
+    },
+    icon: 'fa fa-font',
+    controlClass: InputElement,
+  },
+  [ELEMENT_TYPES.INPUT_NUMBER]: {
+    name: 'Input Number',
+    description: 'A simple number control',
+    props: {
+      label: 'Enter a value',
+    },
+    attr: {
+      type: 'number',
       placeholder: 'Enter a value',
       required: true,
     },

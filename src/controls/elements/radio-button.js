@@ -1,6 +1,7 @@
 import InputControl from '../fb-input-control';
 import { generateRandomId, markup } from '../../js/utils';
-import { ELEMENT_TYPES } from '../control-utils';
+import { ELEMENT_TYPES } from '../utils/element-types';
+
 import InputElement from './input-element';
 
 const defaultSettings = {

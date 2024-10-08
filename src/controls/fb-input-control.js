@@ -1,4 +1,5 @@
-import { CONTROL_TYPES, ELEMENT_TYPES } from './control-utils';
+import { ELEMENT_TYPES } from './utils/element-types';
+import { CONTROL_TYPES } from './utils/control-types';
 import Label from './elements/basics/label';
 import Control from '../js/fb-control';
 import { markup } from '../js/utils';

@@ -1,6 +1,6 @@
 import Control from '../../../js/fb-control';
 import { markup } from '../../../js/utils';
-import { CONTROL_TYPES } from '../../control-utils';
+import { CONTROL_TYPES } from '../../utils/control-types';
 
 export default class Label extends Control {
   constructor(text = '', attr = {}) {

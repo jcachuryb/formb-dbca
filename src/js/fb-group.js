@@ -1,4 +1,4 @@
-import { CONTROL_TYPES } from '../controls/control-utils';
+import { CONTROL_TYPES } from '../controls/utils/control-types';
 import Control from './fb-control';
 
 export default class FBGroup extends Control {

@@ -1,4 +1,4 @@
-import { CONTROL_TYPES } from '../controls/control-utils';
+import { CONTROL_TYPES } from '../controls/utils/control-types';
 import Control from '../js/fb-control';
 import { generateRandomId, markup } from '../js/utils';
 import controlWrapperTemplate from '../views/control-edition-wrapper.handlebars';
