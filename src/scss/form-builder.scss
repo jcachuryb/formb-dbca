@@ -138,6 +138,12 @@ $main-panel-padding: 20px;
 }
 
 // MODAL
-.jquery-modal.blocker {
-  background-color: rgba(0, 0, 0, 0.1);
+#modal-control-edition {
+  .nav-link {
+    color: $caption-color;
+  }
+  .nav-link.active {
+    color: $link-color;
+    font-weight: bold;
+  }
 }

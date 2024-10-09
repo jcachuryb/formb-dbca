@@ -61,4 +61,18 @@ export default class InputControl extends Control {
 
     return super.render([markup('div', children, { id: this.id })], this.container_class);
   }
+
+  displayProperties = [
+    'label',
+    'placeholder',
+    'customClass',
+    'description',
+    'tooltip',
+    'tabIndex',
+    'hidden',
+    'disabled',
+    'hideLabel',
+  ];
+
+  dataProperties = [];
 }
