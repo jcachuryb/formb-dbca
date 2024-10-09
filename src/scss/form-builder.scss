@@ -136,3 +136,8 @@ $main-panel-padding: 20px;
     display: flex;
   }
 }
+
+// MODAL
+.jquery-modal.blocker {
+  background-color: rgba(0, 0, 0, 0.1);
+}

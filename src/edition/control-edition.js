@@ -1,11 +1,13 @@
 import { CONTROL_TYPES } from '../controls/utils/control-types';
 import Control from '../js/fb-control';
+import { appSelectors } from '../js/selectors';
 import { generateRandomId, markup } from '../js/utils';
-import controlWrapperTemplate from '../views/control-edition-wrapper.handlebars';
+import controlWrapperTemplate from '../views/control-edition/control-edition-wrapper.handlebars';
+import Modal from 'bootstrap/js/dist/modal.js';
 
 export default class ControlEdition extends Control {
   id = 'element-wrapper-' + generateRandomId();
-
+  modal = null;
   constructor(attr = {}, props = {}) {
     super(attr, {}, CONTROL_TYPES.BLOCK);
   }
@@ -27,7 +29,13 @@ export default class ControlEdition extends Control {
 
   _editControl(event) {
     const _this = event.data;
-    console.log('Edit Control');
+
+    // $('#modal-test #display-tab-pane').append(partial({}));
+
+    const myModalEl = document.getElementById(appSelectors.modalControlEdition);
+    const configObject = { keyboard: false, backdrop: true };
+    const modal1 = new Modal(myModalEl, configObject); // in
+    modal1.toggle();
   }
 
   _removeControl(event) {

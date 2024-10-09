@@ -1,6 +1,10 @@
 import { CONTROLS_STORE } from '../controls/toolbox-store';
 import ControlEdition from '../edition/control-edition';
+import baseModalTemplate from '../views/control-edition/base-modal.handlebars';
+import baseModalBodyEdition from '../views/control-edition/base-modal-edition.handlebars';
+
 import { markup } from './utils';
+import { appSelectors } from './selectors';
 
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
@@ -65,6 +69,8 @@ export default class LayoutController {
 
     this.loadFormControls(controls, this.controlsPanel);
     $(`.${controlsSel}`).disableSelection();
+
+    this.insertModals();
   }
 
   loadFormControls(controls, parent) {
@@ -85,26 +91,36 @@ export default class LayoutController {
     const elm = new controlClass(attr, props);
     formAreaRender(this.formArea, elm);
   }
+
+  insertModals() {
+    const idSelector = appSelectors.modalControlEdition;
+    this.b.append(
+      baseModalTemplate({
+        id: idSelector,
+      }),
+    );
+    $(`#${appSelectors.modalControlEdition} .modal-body`).append(baseModalBodyEdition({ title: 'Test Modal' }));
+  }
 }
 
 function formAreaRender(formArea, elm, nodeOffset = null) {
   const fbControlWrapper = new ControlEdition();
   const _wrapper = fbControlWrapper.render();
-
   $(_wrapper).find('.fb-wrapper-content').append(elm.render());
+  appendControlEdition(formArea, _wrapper, nodeOffset);
+  fbControlWrapper.addButtonEvents();
+}
 
+function appendControlEdition(parent, node, nodeOffset = null) {
   if (nodeOffset) {
-    const childNodes = formArea.childNodes;
+    const childNodes = parent.childNodes;
     for (let i = 0; i < childNodes.length; i++) {
       const child = childNodes[i];
-      if (formArea.offsetTop > nodeOffset) {
-        formArea.insertBefore(_wrapper, child);
-        fbControlWrapper.addButtonEvents();
+      if (parent.offsetTop > nodeOffset) {
+        parent.insertBefore(node, child);
         return;
       }
     }
   }
-
-  formArea.append(_wrapper);
-  fbControlWrapper.addButtonEvents();
+  parent.append(node);
 }
