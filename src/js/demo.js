@@ -1,6 +1,6 @@
-import partial from '../views/control-edition/display-input-fields.handlebars';
-import template from '../views/control-edition/base-modal-edition.handlebars';
-import Handlebars from 'handlebars';
+// import partial from '../views/control-edition/display-input-fields.handlebars';
+// import template from '../views/control-edition/base-modal-edition.handlebars';
+// import Handlebars from 'handlebars';
 const demo = () => 'Webpack Boilerplate v5.18.0 - SASS/PostCSS, ES6/7, browser sync.';
 
 // eslint-disable-next-line no-console

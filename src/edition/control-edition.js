@@ -3,6 +3,7 @@ import Control from '../js/fb-control';
 import { appSelectors } from '../js/selectors';
 import { generateRandomId, markup } from '../js/utils';
 import controlWrapperTemplate from '../views/control-edition/control-edition-wrapper.handlebars';
+import displayBlockTemplate from '../views/control-edition/display-block.handlebars';
 import Modal from 'bootstrap/js/dist/modal.js';
 
 export default class ControlEdition extends Control {
@@ -10,6 +11,7 @@ export default class ControlEdition extends Control {
   modal = null;
   constructor(attr = {}, props = {}) {
     super(attr, {}, CONTROL_TYPES.BLOCK);
+    this._editControl({});
   }
   render() {
     return markup(
@@ -29,13 +31,24 @@ export default class ControlEdition extends Control {
 
   _editControl(event) {
     const _this = event.data;
+    const modalIdSelector = `#${appSelectors.modalControlEdition}`;
+    const $m = $(modalIdSelector);
 
-    // $('#modal-test #display-tab-pane').append(partial({}));
+    $m.find('#display-tab-pane').empty().append(displayBlockTemplate({}));
+    this.modal = new Modal(document.querySelector(modalIdSelector), {
+      keyboard: false,
+      backdrop: true,
+    });
+    this.modal.toggle();
 
-    const myModalEl = document.getElementById(appSelectors.modalControlEdition);
-    const configObject = { keyboard: false, backdrop: true };
-    const modal1 = new Modal(myModalEl, configObject); // in
-    modal1.toggle();
+    console.log('Adding Control values');
+    $m.find('.modal-footer .btn-primary').on('click', this, this._saveControl);
+  }
+
+  _saveControl(event) {
+    const _this = event.data;
+    console.log('Saving Control values');
+    _this.modal.toggle();
   }
 
   _removeControl(event) {

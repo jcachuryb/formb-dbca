@@ -6,6 +6,8 @@ import baseModalBodyEdition from '../views/control-edition/base-modal-edition.ha
 import { markup } from './utils';
 import { appSelectors } from './selectors';
 
+import Tab from 'bootstrap/js/dist/tab.js';
+
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
 export default class LayoutController {
@@ -100,14 +102,23 @@ export default class LayoutController {
       }),
     );
     $(`#${appSelectors.modalControlEdition} .modal-body`).append(baseModalBodyEdition({ title: 'Test Modal' }));
+    const triggerTabList = document.querySelectorAll('#tabsEdition button');
+    triggerTabList.forEach((triggerEl) => {
+      const tabTrigger = new Tab(triggerEl);
+
+      triggerEl.addEventListener('click', (event) => {
+        event.preventDefault();
+        tabTrigger.show();
+      });
+    });
   }
 }
 
 function formAreaRender(formArea, elm, nodeOffset = null) {
   const fbControlWrapper = new ControlEdition();
-  const _wrapper = fbControlWrapper.render();
-  $(_wrapper).find('.fb-wrapper-content').append(elm.render());
-  appendControlEdition(formArea, _wrapper, nodeOffset);
+  const renderedControl = fbControlWrapper.render();
+  $(renderedControl).find('.fb-wrapper-content').append(elm.render());
+  appendControlEdition(formArea, renderedControl, nodeOffset);
   fbControlWrapper.addButtonEvents();
 }
 
