@@ -9,9 +9,13 @@ import Modal from 'bootstrap/js/dist/modal.js';
 export default class ControlEdition extends Control {
   id = 'element-wrapper-' + generateRandomId();
   modal = null;
-  constructor(attr = {}, props = {}) {
-    super(attr, {}, CONTROL_TYPES.BLOCK);
-    this._editControl({});
+  initialProps;
+  constructor(control) {
+    super({}, {}, CONTROL_TYPES.BLOCK);
+    this.control = control;
+    this._editControl({
+      data: this,
+    });
   }
   render() {
     return markup(
@@ -34,9 +38,17 @@ export default class ControlEdition extends Control {
     const modalIdSelector = `#${appSelectors.modalControlEdition}`;
     const $m = $(modalIdSelector);
 
-    $m.find('#display-tab-pane').empty().append(displayBlockTemplate({}));
+    if (_this.control && _this.control.displayControlProps) {
+      $m.find('#display-tab-pane form').empty().append(_this.control.displayControlProps.render());
+      _this.control.displayControlProps.addChangeEvents(_this, _this._onPropsChange);
+      _this.initialProps = _this.control.displayControlProps.getPropsValues();
+      $m.find('#preview-edition').empty().append(_this.control.render(_this.initialProps));
+      // Fill in the values DONE
+      // Add events?
+      // Add validation?
+    }
     this.modal = new Modal(document.querySelector(modalIdSelector), {
-      keyboard: false,
+      keyboard: true,
       backdrop: true,
     });
     this.modal.toggle();
@@ -45,9 +57,21 @@ export default class ControlEdition extends Control {
     $m.find('.modal-footer .btn-primary').on('click', this, this._saveControl);
   }
 
+  _onPropsChange(e) {
+    const _this = e.data;
+
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    console.log('Field value changed to: ', value);
+
+    // _this.control.displayControlProps.props[e.target.name].value = value;
+    // _this.initialProps.props[e.target.name].value = value;
+    // console.log('Field value changed to: ', this.prop.value);
+  }
+
   _saveControl(event) {
     const _this = event.data;
     console.log('Saving Control values');
+
     _this.modal.toggle();
   }
 

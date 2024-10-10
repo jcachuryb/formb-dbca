@@ -10,6 +10,7 @@ export default class Control {
   className = '';
 
   controlType = 'BLOCK';
+  displayControlProps;
 
   constructor(attr, props, controlType, id = null) {
     this.controlType = controlType;
@@ -27,6 +28,10 @@ export default class Control {
 
   getIdSelector() {
     return `#${this.id}`;
+  }
+
+  renderControl(children = [], containerClass = '') {
+    return markup('div', children, { class: containerClass });
   }
 
   render(children = [], containerClass = '') {

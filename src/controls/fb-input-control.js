@@ -3,6 +3,7 @@ import { CONTROL_TYPES } from './utils/control-types';
 import Label from './elements/basics/label';
 import Control from '../js/fb-control';
 import { markup } from '../js/utils';
+import { CONTROL_PROPS_TYPES } from './utils/control-props-types';
 
 function extractLabelProps(props = {}) {
   const labelProps = {};
@@ -18,6 +19,7 @@ function extractLabelProps(props = {}) {
 export default class InputControl extends Control {
   container_class = 'formarea-control';
   element_type;
+
   constructor(attr, props, element_type) {
     super(attr, props, CONTROL_TYPES.ELEMENT);
     this.element_type = element_type || ELEMENT_TYPES.INPUT;
@@ -39,6 +41,10 @@ export default class InputControl extends Control {
     console.log('Setup method called');
   }
 
+  isShowLabel() {
+    return this.label.text !== '' && !this.displayControlProps.props[CONTROL_PROPS_TYPES.HIDE_LABEL].value;
+  }
+
   getAttributes() {
     const attributes = {};
     for (let key in this.attr) {
@@ -47,11 +53,15 @@ export default class InputControl extends Control {
     return attributes;
   }
 
+  renderControl(children = []) {
+    return super.renderControl([markup('div', [this.label.render(), ...children], {})], this.container_class);
+  }
+
   render(children = []) {
     if (!Array.isArray(children)) {
       children = [children];
     }
-    if (this.label) {
+    if (this.isShowLabel) {
       if (this.element_type === ELEMENT_TYPES.CHECK_BOX) {
         children.push(this.label.render());
       } else {

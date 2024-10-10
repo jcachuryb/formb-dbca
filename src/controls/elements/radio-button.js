@@ -3,6 +3,8 @@ import { generateRandomId, markup } from '../../js/utils';
 import { ELEMENT_TYPES } from '../utils/element-types';
 
 import InputElement from './input-element';
+import RadioDisplayProps from '../config-properties/radio-properties';
+import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
 
 const defaultSettings = {
   class: 'form-check-input',
@@ -20,31 +22,56 @@ const defaultProps = {
 };
 
 export default class RadioButton extends InputControl {
-  name = 'rb-' + generateRandomId();
   options = defaultProps.options;
 
   constructor(attr = {}, props = {}) {
     let _attr = Object.assign({}, defaultSettings, attr);
     let _props = Object.assign({}, defaultProps, props);
     super(_attr, _props, ELEMENT_TYPES.RADIO);
+    this.name = 'rb-' + generateRandomId();
     this.setup();
   }
 
   setup() {
+    this.displayControlProps = new RadioDisplayProps(this.props);
+
     const opt = this.props.options;
     this.options = [];
     for (let i = 0; i < opt.length; i++) {
       const elementId = `${this.name}-${i + 1}`;
       const inputEl = new InputElement(
-        { type: 'radio', name: this.name, id: elementId, class: 'form-check-input', container_class: '' },
-        { label: opt[i].text, labelFor: elementId, labelClass: 'form-check-label' },
+        { type: 'radio' },
+        {
+          type: 'radio',
+          label: opt[i].text,
+          labelFor: elementId,
+          labelClass: 'form-check-label',
+          name: this.name,
+          id: elementId,
+          class: 'form-check-input',
+        },
       );
       this.options.push(inputEl);
     }
   }
 
-  render() {
-    const radioButton = this.options.map((opt) => markup('div', opt.render(), { class: 'form-check' }));
-    return super.render(radioButton, 'formarea-control');
+  renderControl() {
+    const props = {
+      [CONTROL_PROPS_TYPES.LABEL]: this.displayControlProps.props[CONTROL_PROPS_TYPES.LABEL].value,
+      options: this.options,
+    };
+
+    const options = props.options;
+    this.label.text = props[CONTROL_PROPS_TYPES.LABEL];
+    const radioButtons = options.map((opt) => markup('div', opt.render(), { class: 'form-check' }));
+    return super.render(radioButtons, 'formarea-control');
+  }
+
+  render(customProps, attr) {
+    const props = customProps ?? this.displayControlProps.getPropsValues();
+    const options = props.options ?? this.options;
+    this.label.text = props[CONTROL_PROPS_TYPES.LABEL];
+    const radioButtons = options.map((opt) => markup('div', opt.render(), { class: 'form-check' }));
+    return super.render(radioButtons, 'formarea-control');
   }
 }

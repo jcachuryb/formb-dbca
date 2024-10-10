@@ -6,8 +6,8 @@
           type="button" role="tab" aria-controls="display-tab-pane" aria-selected="true">Display</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-pane" type="button"
-          role="tab" aria-controls="profile-pane" aria-selected="false">Profile</button>
+        <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data-pane" type="button" role="tab"
+          aria-controls="data-pane" aria-selected="false">Data</button>
       </li>
       {{!-- <li class="nav-item" role="presentation">
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
@@ -22,9 +22,12 @@
     <div class="tab-content mt-3" id="tabsEditionContent">
       <div class="tab-pane fade show active" id="display-tab-pane" role="tabpanel" aria-labelledby="display-tab"
         tabindex="0">
+        <form>
+
+        </form>
       </div>
-      <div class="tab-pane fade" id="profile-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        Profile here
+      <div class="tab-pane fade" id="data-pane" role="tabpanel" aria-labelledby="data-tab" tabindex="0">
+        data here
       </div>
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...
       </div>
@@ -34,7 +37,7 @@
   </div>
   <div class="col">
     <h3>Preview</h3>
-    <div class="preview"></div>
+    <div id="preview-edition"></div>
   </div>
 
 </div>

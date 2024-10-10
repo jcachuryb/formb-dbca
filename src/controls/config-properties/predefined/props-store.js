@@ -23,7 +23,7 @@ export const propertiesStore = {
     name: 'customClass',
     title: 'Custom Class',
     type: 'string',
-    placeholder: 'Enter a custom class',
+    placeholder: 'Custom CSS classes',
     required: false,
     options: undefined,
     value: '',
@@ -80,7 +80,7 @@ export const propertiesStore = {
     placeholder: 'Enter a hidden',
     required: false,
     options: undefined,
-    value: '',
+    value: false,
   },
   [CONTROL_PROPS_TYPES.DISABLED]: {
     name: 'disabled',
@@ -89,7 +89,7 @@ export const propertiesStore = {
     placeholder: 'Enter a disabled',
     required: false,
     options: undefined,
-    value: '',
+    value: false,
   },
   [CONTROL_PROPS_TYPES.HIDE_LABEL]: {
     name: 'hideLabel',
@@ -98,6 +98,6 @@ export const propertiesStore = {
     placeholder: 'Enter a hideLabel',
     required: false,
     options: undefined,
-    value: '',
+    value: false,
   },
 };

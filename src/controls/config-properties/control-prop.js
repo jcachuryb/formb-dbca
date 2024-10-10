@@ -2,53 +2,78 @@ import { generateRandomId, markup } from '../../js/utils';
 import { propertiesStore } from './predefined/props-store';
 
 export default class ControlProp {
-  id = 'prop-' + generateRandomId();
   prop; // Property object from propertiesStore
-  // prop.name; // Name of the property
-  // prop.title; // Title of the property
-  // prop.type; // Type of the property
-  // prop.placeholder; // Placeholder for the property
-  // prop.required; // Is the property required
-  // prop.options; // Options for the property for multiple choice
-  // prop.value; // Value of the property
+  /* name */
+  /* title */
+  /* type */
+  /* placeholder */
+  /* required */
+  /* options */
+  /* value */
 
   constructor(type) {
     this.prop = propertiesStore[type];
+    this.id = `cp-${this.prop.name}`;
   }
 
   renderProp() {
-    const fieldId = `cp-${this.prop.name}`;
-    markup(
-      'div',
-      [
-        markup('label', this.prop.title, { for: fieldId }),
-        renderProp(this.prop.type, this.prop.value, this.prop.options, this.prop.required),
-      ],
-      { id: this.id, class: 'form-group' },
-    );
+    const children = [
+      markup('label', this.prop.title, {
+        for: this.id,
+        class: this.prop.type === 'boolean' ? 'form-check-label' : 'form-label',
+      }),
+      _renderProp(
+        {
+          id: this.id,
+          type: this.prop.type,
+          value: this.prop.value,
+          placeholder: this.prop.placeholder,
+        },
+        this.prop.options,
+        this.prop.required,
+      ),
+    ];
+    if (this.prop.type === 'boolean') {
+      children.reverse();
+    }
+    return markup('div', children, { id: this.id, class: 'form-check mb-3' });
+  }
+
+  addChangeEvent(context, cb) {
+    if (!cb) return;
+    if (this.prop.type === 'boolean') {
+      $(`#${this.id}`).on('change', context, cb);
+    }
+    if (this.prop.type === 'string') {
+      $(`#${this.id}`).on('input', context, cb);
+    }
   }
 }
-function renderProp(type = 'input', value = '', options = [], required = falsed) {
-  switch (type) {
-    case 'string':
-      return markup('input', '', { type: 'text', value, required });
-    case 'number':
-      return markup('input', '', { type: 'number', value, required });
-    case 'boolean':
-      return markup('input', '', { type: 'checkbox', checked: !!!value, required });
-    case 'select':
-      const selectEl = markup('select', '', { required });
-      options.forEach((option) => {
-        const optionEl = document.createElement('option');
-        for (const key in option) {
-          if (option.hasOwnProperty(key)) {
-            optionEl[key] = option[key];
-          }
+
+function _renderProp(basicProps, options = [], required = falsed) {
+  const { id, type, value, placeholder } = basicProps;
+  const inputType = type === 'boolean' ? 'checkbox' : type === 'string' ? 'text' : type;
+
+  if (inputType === 'select') {
+    const selectEl = markup('select', '', { id, required, class: 'form-control' });
+    options.forEach((option) => {
+      const optionEl = document.createElement('option');
+      for (const key in option) {
+        if (option.hasOwnProperty(key)) {
+          optionEl[key] = option[key];
         }
-        selectEl.appendChild(optionEl);
-      });
-      return selectEl;
-    default:
-      return markup('input', '', { type: 'text', value, required });
+      }
+      selectEl.appendChild(optionEl);
+    });
+    return selectEl;
   }
+  if (inputType === 'checkbox') {
+    const checkboxProps = { id, type: inputType, required, class: 'form-check-input' };
+    if (value) {
+      checkboxProps.checked = value;
+    }
+    return markup('input', '', checkboxProps);
+  }
+
+  return markup('input', '', { id, type: inputType, value, placeholder, required, class: 'form-control' });
 }

@@ -89,7 +89,7 @@ export default class LayoutController {
 
   renderForm() {
     this.formArea.append(markup('div', 'Form Area', {}));
-    const { attr, props, controlClass } = CONTROLS_STORE['input'];
+    const { attr, props, controlClass } = CONTROLS_STORE['radio'];
     const elm = new controlClass(attr, props);
     formAreaRender(this.formArea, elm);
   }
@@ -114,10 +114,11 @@ export default class LayoutController {
   }
 }
 
-function formAreaRender(formArea, elm, nodeOffset = null) {
-  const fbControlWrapper = new ControlEdition();
+function formAreaRender(formArea, control, nodeOffset = null) {
+  const fbControlWrapper = new ControlEdition(control);
+
   const renderedControl = fbControlWrapper.render();
-  $(renderedControl).find('.fb-wrapper-content').append(elm.render());
+  $(renderedControl).find('.fb-wrapper-content').append(control.renderControl());
   appendControlEdition(formArea, renderedControl, nodeOffset);
   fbControlWrapper.addButtonEvents();
 }
