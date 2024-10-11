@@ -25,11 +25,9 @@ export default class InputControl extends Control {
     this.element_type = element_type || ELEMENT_TYPES.INPUT;
     this.label = new Label(props['label'] || '', extractLabelProps(props)); // Default label
     this._basicSetup();
-    this.setup();
   }
 
   _basicSetup() {
-    this.label.text = this.props?.label || 'No Label set';
     this.container_class = this.props?.container_class || this.container_class;
   }
 

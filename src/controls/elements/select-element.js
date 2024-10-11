@@ -52,26 +52,36 @@ export default class SelectElement extends InputControl {
       [CONTROL_PROPS_TYPES.LABEL]: props[CONTROL_PROPS_TYPES.LABEL],
       [CONTROL_PROPS_TYPES.PLACEHOLDER]: props[CONTROL_PROPS_TYPES.PLACEHOLDER],
       [CONTROL_PROPS_TYPES.CUSTOM_CLASS]: props[CONTROL_PROPS_TYPES.CUSTOM_CLASS],
+      [CONTROL_PROPS_TYPES.DISABLED]: props[CONTROL_PROPS_TYPES.DISABLED],
     });
   }
 
   render(customProps, attr) {
     const props = customProps ?? this.displayControlProps.getPropsValues();
+
     this.label.text = props[CONTROL_PROPS_TYPES.LABEL];
+    this.label.display = !!!props[CONTROL_PROPS_TYPES.HIDE_LABEL];
+
     const attributes = {
-      class: 'form-control'.concat(props[CONTROL_PROPS_TYPES.CUSTOM_CLASS] ?? ''),
+      id: props.id ?? this.id,
+      value: this.value,
+      placeholder: props[CONTROL_PROPS_TYPES.PLACEHOLDER] ?? '',
+      class: (this.attr.class ?? '').concat(' ', props[CONTROL_PROPS_TYPES.CUSTOM_CLASS] ?? ''),
     };
+    if (props[CONTROL_PROPS_TYPES.DISABLED]) {
+      attributes.disabled = true;
+    }
 
     const selectEl = markup('select', '', attributes);
     if (props[CONTROL_PROPS_TYPES.PLACEHOLDER]) {
       selectEl.append(
         markup('option', props[CONTROL_PROPS_TYPES.PLACEHOLDER], {
           value: '',
-          disabled: true,
           selected: true,
         }),
       );
     }
+
     this.options.forEach((option) => {
       selectEl.appendChild(
         markup('option', option.text, {

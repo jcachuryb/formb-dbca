@@ -13,7 +13,7 @@ export default class ControlProp {
   /* value */
 
   constructor(type) {
-    this.prop = propertiesStore[type];
+    this.prop = { ...propertiesStore[type] };
     this.id = `cp-${this.prop.name}`;
   }
 

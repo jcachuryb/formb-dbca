@@ -11,10 +11,6 @@ const defaultSettings = {
   [CONTROL_PROPS_TYPES.LABEL]: 'Text field',
 };
 
-const defaultAttributes = {
-  class: 'formarea-control',
-};
-
 export default class InputElement extends InputControl {
   constructor(attr = {}, props = {}) {
     let _props = Object.assign({}, defaultSettings, props);
