@@ -3,8 +3,9 @@ import { generateRandomId, markup } from '../../js/utils';
 import { ELEMENT_TYPES } from '../utils/element-types';
 
 import InputElement from './input-element';
-import RadioDisplayProps from '../config-properties/radio-properties';
+
 import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
+import { RadioDisplayProps } from '../config-properties/input-properties';
 
 const defaultSettings = {
   class: 'form-check-input',
@@ -55,6 +56,7 @@ export default class RadioButton extends InputControl {
           name: name,
           id: elementId,
           class: 'form-check-input',
+          containerClass: 'form-check',
         },
         ELEMENT_TYPES.RADIO,
       );

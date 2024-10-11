@@ -95,9 +95,17 @@ export default class LayoutController {
 
   renderForm() {
     this.formArea.append(markup('h2', 'Form Builder DBCA', {}));
-    const { attr, props, controlClass } = CONTROLS_STORE[ELEMENT_TYPES.INPUT_NUMBER];
-    const elm = new controlClass(attr, props);
-    this.insertControl(this.formArea, elm);
+    const defaultElements = [
+      ELEMENT_TYPES.INPUT,
+      ELEMENT_TYPES.INPUT_NUMBER,
+      ELEMENT_TYPES.SELECT,
+      ELEMENT_TYPES.CHECK_BOX,
+    ];
+    defaultElements.forEach((element) => {
+      const { attr, props, controlClass } = CONTROLS_STORE[element];
+      const elm = new controlClass(attr, props);
+      this.insertControl(this.formArea, elm);
+    });
   }
 
   insertModals() {

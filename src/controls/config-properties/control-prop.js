@@ -1,6 +1,13 @@
 import { generateRandomId, markup } from '../../js/utils';
 import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
+import { dataPropertiesStore, datasourceDataPropertiesStore } from './predefined/data-props-store';
 import { propertiesStore } from './predefined/props-store';
+
+const allProps = {
+  ...propertiesStore,
+  ...dataPropertiesStore,
+  ...datasourceDataPropertiesStore,
+};
 
 export default class ControlProp {
   prop; // Property object from propertiesStore
@@ -13,7 +20,7 @@ export default class ControlProp {
   /* value */
 
   constructor(type) {
-    this.prop = { ...propertiesStore[type] };
+    this.prop = { ...allProps[type] };
     this.id = `cp-${this.prop.name}`;
   }
 
@@ -66,6 +73,9 @@ function _renderProp(basicProps, options = [], required = false) {
       for (const key in option) {
         if (option.hasOwnProperty(key)) {
           optionEl[key] = option[key];
+          if (key === value) {
+            optionEl.selected = true;
+          }
         }
       }
       selectEl.appendChild(optionEl);

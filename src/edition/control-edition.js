@@ -1,3 +1,4 @@
+import { CONTROL_PROPS_TYPES } from '../controls/utils/control-props-types';
 import { CONTROL_TYPES } from '../controls/utils/control-types';
 import Control from '../js/fb-control';
 import { appSelectors } from '../js/selectors';
@@ -69,6 +70,10 @@ export default class ControlEdition extends Control {
 
   _saveControl(event) {
     const _this = event.data;
+    if (_this.initialProps[CONTROL_PROPS_TYPES.LABEL] === '') {
+      alert('Label is required');
+      return;
+    }
     _this.control.displayControlProps.fillInProps(Object.assign({}, _this.initialProps));
     _this.modal.hide();
     _this.controller.onSave(_this);

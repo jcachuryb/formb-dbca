@@ -1,7 +1,7 @@
 import InputControl from '../fb-input-control';
 import { markup } from '../../js/utils';
 import { INPUT_TYPES } from '../utils/input-types';
-import { TextFieldDisplayProps, InputFieldDisplayProps } from '../config-properties/input-properties';
+import { InputFieldDisplayProps } from '../config-properties/input-properties';
 import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
 
 const defaultSettings = {
@@ -26,6 +26,9 @@ export default class InputElement extends InputControl {
       this.id = this.props.id;
     } else if (INPUT_TYPES.CHECK_BOX == this.attr.type) {
       this.attr['class'] = 'form-check-input';
+      this.label.attr.for = this.id;
+      this.label.attr.class = 'form-check-label';
+      this.container_class = 'form-check';
     } else {
       this.attr['class'] = 'form-control';
     }

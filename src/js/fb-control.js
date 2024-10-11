@@ -11,6 +11,7 @@ export default class Control {
 
   controlType = 'BLOCK';
   displayControlProps;
+  dataControlProps;
 
   constructor(attr, props, controlType, id = null) {
     this.controlType = controlType;

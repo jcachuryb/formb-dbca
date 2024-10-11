@@ -10,8 +10,8 @@ export const CONTROLS_STORE = {
     description: 'A simple input control',
     props: {
       name: 'Input Control',
-      label: 'Enter a value',
-      placeholder: 'Enter a value in the text field',
+      label: 'Text Field',
+      placeholder: '',
       required: true,
       type: INPUT_TYPES.TEXT,
     },
@@ -56,10 +56,12 @@ export const CONTROLS_STORE = {
   [ELEMENT_TYPES.CHECK_BOX]: {
     description: 'A simple checkbox control',
     name: 'Checkbox Control',
-    props: { label: 'Checkbox', checked: true },
-    attr: {},
+    props: { label: 'Checkbox', checked: true, type: INPUT_TYPES.CHECK_BOX },
+    attr: {
+      type: INPUT_TYPES.CHECK_BOX,
+    },
     icon: 'fa fa-font',
-    controlClass: Checkbox,
+    controlClass: InputElement,
   },
   [ELEMENT_TYPES.RADIO]: {
     description: 'A simple radio control',
