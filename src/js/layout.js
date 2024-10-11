@@ -9,6 +9,7 @@ import { appSelectors } from './selectors';
 import Tab from 'bootstrap/js/dist/tab.js';
 import Control from './fb-control';
 import { CONTROL_TYPES } from '../controls/utils/control-types';
+import { ELEMENT_TYPES } from '../controls/utils/element-types';
 
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
@@ -94,7 +95,7 @@ export default class LayoutController {
 
   renderForm() {
     this.formArea.append(markup('h2', 'Form Builder DBCA', {}));
-    const { attr, props, controlClass } = CONTROLS_STORE['radio'];
+    const { attr, props, controlClass } = CONTROLS_STORE[ELEMENT_TYPES.INPUT_NUMBER];
     const elm = new controlClass(attr, props);
     this.insertControl(this.formArea, elm);
   }

@@ -1,4 +1,5 @@
 import { generateRandomId, markup } from '../../js/utils';
+import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
 import { propertiesStore } from './predefined/props-store';
 
 export default class ControlProp {
@@ -45,7 +46,10 @@ export default class ControlProp {
     if (this.prop.type === 'boolean') {
       $(`#${this.id}`).on('change', { context, prop: this.prop }, cb);
     }
-    if (this.prop.type === 'string') {
+
+    if (this.prop.name === CONTROL_PROPS_TYPES.CUSTOM_CLASS) {
+      $(`#${this.id}`).on('change', { context, prop: this.prop }, cb);
+    } else if (this.prop.type === 'string') {
       $(`#${this.id}`).on('input', { context, prop: this.prop }, cb);
     }
   }

@@ -25,12 +25,13 @@ export const CONTROLS_STORE = {
     description: 'A simple number control',
     props: {
       name: 'Input Number',
-      label: 'Enter a value',
+      label: 'Enter a number',
+      type: INPUT_TYPES.NUMBER,
+      placeholder: 'Enter a number',
+      required: true,
     },
     attr: {
       type: INPUT_TYPES.NUMBER,
-      placeholder: 'Enter a value',
-      required: true,
     },
     icon: 'fa fa-font',
     controlClass: InputElement,

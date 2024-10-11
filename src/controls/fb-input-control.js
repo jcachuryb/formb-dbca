@@ -28,10 +28,6 @@ export default class InputControl extends Control {
     this.setup();
   }
 
-  setLabel(newLabel) {
-    this.label.innerHTML = newLabel;
-  }
-
   _basicSetup() {
     this.label.text = this.props?.label || 'No Label set';
     this.container_class = this.props?.container_class || this.container_class;
@@ -77,6 +73,6 @@ export default class InputControl extends Control {
       }
     }
 
-    return super.render([markup('div', children, { id: this.id })], this.container_class);
+    return markup('div', children, { class: this.container_class });
   }
 }
