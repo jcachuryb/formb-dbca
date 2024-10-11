@@ -1,7 +1,7 @@
 import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
 import BaseControlProps from './base-control-props';
 
-const defProps = [
+const textProps = [
   CONTROL_PROPS_TYPES.LABEL,
   CONTROL_PROPS_TYPES.PLACEHOLDER,
   CONTROL_PROPS_TYPES.DESCRIPTION,
@@ -15,9 +15,36 @@ const defProps = [
   CONTROL_PROPS_TYPES.HIDE_LABEL,
 ];
 
-export default class TextFieldDisplayProps extends BaseControlProps {
+const radioProps = [
+  CONTROL_PROPS_TYPES.LABEL,
+  //   CONTROL_PROPS_TYPES.TAB_INDEX,
+  CONTROL_PROPS_TYPES.CHECKED,
+  CONTROL_PROPS_TYPES.DISABLED,
+];
+
+function getProps(type) {
+  switch (type) {
+    case 'radio':
+      return radioProps;
+    default:
+      return textProps;
+  }
+}
+
+export class TextFieldDisplayProps extends BaseControlProps {
   constructor(props) {
-    super(defProps);
+    super(textProps);
+    this.fillInProps(props);
+  }
+
+  render() {
+    return super.render();
+  }
+}
+
+export class InputFieldDisplayProps extends BaseControlProps {
+  constructor(type = 'text', props) {
+    super(getProps(type));
     this.fillInProps(props);
   }
 

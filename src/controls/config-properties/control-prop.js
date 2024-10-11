@@ -27,6 +27,7 @@ export default class ControlProp {
           id: this.id,
           type: this.prop.type,
           value: this.prop.value,
+          name: this.prop.name,
           placeholder: this.prop.placeholder,
         },
         this.prop.options,
@@ -42,15 +43,15 @@ export default class ControlProp {
   addChangeEvent(context, cb) {
     if (!cb) return;
     if (this.prop.type === 'boolean') {
-      $(`#${this.id}`).on('change', context, cb);
+      $(`#${this.id}`).on('change', { context, prop: this.prop }, cb);
     }
     if (this.prop.type === 'string') {
-      $(`#${this.id}`).on('input', context, cb);
+      $(`#${this.id}`).on('input', { context, prop: this.prop }, cb);
     }
   }
 }
 
-function _renderProp(basicProps, options = [], required = falsed) {
+function _renderProp(basicProps, options = [], required = false) {
   const { id, type, value, placeholder } = basicProps;
   const inputType = type === 'boolean' ? 'checkbox' : type === 'string' ? 'text' : type;
 

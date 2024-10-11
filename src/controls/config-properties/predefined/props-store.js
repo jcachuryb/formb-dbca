@@ -100,4 +100,13 @@ export const propertiesStore = {
     options: undefined,
     value: false,
   },
+  [CONTROL_PROPS_TYPES.CHECKED]: {
+    name: 'checked',
+    title: 'Checked',
+    type: 'boolean',
+    placeholder: 'Enter a checked',
+    required: false,
+    options: undefined,
+    value: false,
+  },
 };

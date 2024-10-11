@@ -42,7 +42,7 @@ export default class InputControl extends Control {
   }
 
   isShowLabel() {
-    return this.label.text !== '' && !this.displayControlProps.props[CONTROL_PROPS_TYPES.HIDE_LABEL].value;
+    return this.label.text !== '' && !this.displayControlProps.props[CONTROL_PROPS_TYPES.HIDE_LABEL]?.value;
   }
 
   getAttributes() {
@@ -54,14 +54,22 @@ export default class InputControl extends Control {
   }
 
   renderControl(children = []) {
-    return super.renderControl([markup('div', [this.label.render(), ...children], {})], this.container_class);
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
+    if ([ELEMENT_TYPES.CHECK_BOX, ELEMENT_TYPES.RADIO].find(this.element_type)) {
+      children.push(this.label.render());
+    } else {
+      children.unshift(this.label.render());
+    }
+    return super.render([markup('div', children)], this.container_class);
   }
 
   render(children = []) {
     if (!Array.isArray(children)) {
       children = [children];
     }
-    if (this.isShowLabel) {
+    if (this.isShowLabel()) {
       if (this.element_type === ELEMENT_TYPES.CHECK_BOX) {
         children.push(this.label.render());
       } else {
@@ -71,18 +79,4 @@ export default class InputControl extends Control {
 
     return super.render([markup('div', children, { id: this.id })], this.container_class);
   }
-
-  displayProperties = [
-    'label',
-    'placeholder',
-    'customClass',
-    'description',
-    'tooltip',
-    'tabIndex',
-    'hidden',
-    'disabled',
-    'hideLabel',
-  ];
-
-  dataProperties = [];
 }

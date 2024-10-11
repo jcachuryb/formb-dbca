@@ -17,8 +17,10 @@ export default class Control {
     this.attr = attr;
     this.props = props;
     this.events = {};
-    if (!id) {
+    if (!id && !this.id) {
       this.id = (this.controlType.toLocaleLowerCase() + '-' + generateRandomId()).toLowerCase();
+    } else {
+      this.id = id;
     }
   }
 

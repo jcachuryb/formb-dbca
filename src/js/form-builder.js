@@ -22,7 +22,7 @@ function FormBuilder(element, settings, $) {
 
   _.$builder = $(element);
 
-  _.body = {};
+  _.body = [];
 
   _.layout = new LayoutController(_.$builder, _.body);
 

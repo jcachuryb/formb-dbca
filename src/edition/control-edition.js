@@ -10,12 +10,13 @@ export default class ControlEdition extends Control {
   id = 'element-wrapper-' + generateRandomId();
   modal = null;
   initialProps;
-  constructor(control) {
+  constructor(control, controller) {
     super({}, {}, CONTROL_TYPES.BLOCK);
     this.control = control;
-    this._editControl({
-      data: this,
-    });
+    this.controller = controller;
+    // this._editControl({
+    //   data: this,
+    // });
   }
   render() {
     return markup(
@@ -44,35 +45,33 @@ export default class ControlEdition extends Control {
       _this.initialProps = _this.control.displayControlProps.getPropsValues();
       $m.find('#preview-edition').empty().append(_this.control.render(_this.initialProps));
       // Fill in the values DONE
-      // Add events?
+      // Add events DONE
       // Add validation?
     }
-    this.modal = new Modal(document.querySelector(modalIdSelector), {
+    _this.modal = new Modal(document.querySelector(modalIdSelector), {
       keyboard: true,
       backdrop: true,
     });
-    this.modal.toggle();
+    _this.modal.toggle();
 
     console.log('Adding Control values');
-    $m.find('.modal-footer .btn-primary').on('click', this, this._saveControl);
+    $m.find('.modal-footer .btn-primary').off('click').on('click', _this, _this._saveControl);
   }
 
   _onPropsChange(e) {
-    const _this = e.data;
+    const { context: _this, prop } = e.data;
 
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    console.log('Field value changed to: ', value);
-
-    // _this.control.displayControlProps.props[e.target.name].value = value;
-    // _this.initialProps.props[e.target.name].value = value;
-    // console.log('Field value changed to: ', this.prop.value);
+    console.log('Field value ', prop.name, ' changed to: ', value);
+    _this.initialProps[prop.name] = value;
+    $('#preview-edition').empty().append(_this.control.render(_this.initialProps));
   }
 
   _saveControl(event) {
     const _this = event.data;
-    console.log('Saving Control values');
-
-    _this.modal.toggle();
+    _this.control.displayControlProps.fillInProps(Object.assign({}, _this.initialProps));
+    _this.modal.hide();
+    _this.controller.onSave(_this);
   }
 
   _removeControl(event) {

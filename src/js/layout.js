@@ -7,18 +7,21 @@ import { markup } from './utils';
 import { appSelectors } from './selectors';
 
 import Tab from 'bootstrap/js/dist/tab.js';
+import Control from './fb-control';
+import { CONTROL_TYPES } from '../controls/utils/control-types';
 
 const formAreaSel = 'formarea';
 const controlsSel = 'formcomponents';
 export default class LayoutController {
   constructor(builderElement, body) {
-    this.b = builderElement;
+    this.b = builderElement; // HTML
     this.body = body;
     this.formArea = undefined;
     this.controlsPanel = undefined;
   }
 
   initialLayout(controls) {
+    this.body.push(new Control({}, { containerClass: 'container' }, CONTROL_TYPES.BLOCK, 'formbuilder'));
     let formbuilder = markup('div', '', { id: 'formbuilder' });
     let controlsPanel = markup('div', '', { id: controlsSel, class: controlsSel });
     let builderArea = markup('div', '', {
@@ -36,28 +39,30 @@ export default class LayoutController {
 
     this.controlsPanel = $(`#${controlsSel}`);
 
-    $(`.${formAreaSel}`).sortable({
+    this.formArea.sortable({
       placeholder: 'ui-state-highlight',
       helper: 'clone',
       cursor: 'move',
       scroll: false,
       tolerance: 'pointer',
-      update: function (event, ui) {
-        if (ui.sender) {
-          ui.sender.sortable('cancel');
-          try {
-            const data = ui.item[0].dataset;
-            const controlType = data.controlType;
-            const { attr, props, controlClass } = CONTROLS_STORE[controlType];
-            const elm = new controlClass(attr, props);
-            const nodeOffset = ui.offset.top;
-            formAreaRender(this, elm, nodeOffset);
-          } catch (error) {
-            console.log("Couldn't append element", error);
-          }
-        }
-      },
     });
+    this.formArea.on('sortupdate', this, function (event, ui) {
+      const _this = event.data;
+      if (ui.sender) {
+        ui.sender.sortable('cancel');
+        try {
+          const data = ui.item[0].dataset;
+          const controlType = data.controlType;
+          const { attr, props, controlClass } = CONTROLS_STORE[controlType];
+          const elm = new controlClass(attr, props);
+          const nodeOffset = ui.offset.top;
+          _this.insertControl(this, elm, nodeOffset);
+        } catch (error) {
+          console.log("Couldn't append element", error);
+        }
+      }
+    });
+
     $(`.${formAreaSel}`).disableSelection();
 
     $(`.${controlsSel}`).sortable({
@@ -88,10 +93,10 @@ export default class LayoutController {
   }
 
   renderForm() {
-    this.formArea.append(markup('div', 'Form Area', {}));
+    this.formArea.append(markup('h2', 'Form Builder DBCA', {}));
     const { attr, props, controlClass } = CONTROLS_STORE['radio'];
     const elm = new controlClass(attr, props);
-    formAreaRender(this.formArea, elm);
+    this.insertControl(this.formArea, elm);
   }
 
   insertModals() {
@@ -112,15 +117,25 @@ export default class LayoutController {
       });
     });
   }
-}
 
-function formAreaRender(formArea, control, nodeOffset = null) {
-  const fbControlWrapper = new ControlEdition(control);
+  insertControl(areaContainer, control, nodeOffset = null) {
+    const fbControlWrapper = new ControlEdition(control, {
+      onSave: function (controlEditor) {
+        const { control } = controlEditor;
+        try {
+          $(controlEditor.getIdSelector()).find('.fb-wrapper-content').empty().append(control.renderControl());
+        } catch (error) {
+          console.log('Error saving control', error);
+        }
+      },
+    });
 
-  const renderedControl = fbControlWrapper.render();
-  $(renderedControl).find('.fb-wrapper-content').append(control.renderControl());
-  appendControlEdition(formArea, renderedControl, nodeOffset);
-  fbControlWrapper.addButtonEvents();
+    const renderedControl = fbControlWrapper.render();
+    $(renderedControl).find('.fb-wrapper-content').append(control.renderControl());
+    appendControlEdition(areaContainer, renderedControl, nodeOffset);
+    fbControlWrapper.addButtonEvents();
+    this.body.push(control);
+  }
 }
 
 function appendControlEdition(parent, node, nodeOffset = null) {

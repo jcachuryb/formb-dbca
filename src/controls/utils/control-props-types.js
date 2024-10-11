@@ -9,5 +9,6 @@ export const CONTROL_PROPS_TYPES = {
   TAB_INDEX: 'tabIndex',
   HIDDEN: 'hidden',
   DISABLED: 'disabled',
+  CHECKED: 'checked',
   HIDE_LABEL: 'hideLabel',
 };

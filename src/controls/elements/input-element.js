@@ -1,7 +1,7 @@
 import InputControl from '../fb-input-control';
 import { markup } from '../../js/utils';
 import { INPUT_TYPES } from '../utils/input-types';
-import TextFieldDisplayProps from '../config-properties/input-properties';
+import { TextFieldDisplayProps, InputFieldDisplayProps } from '../config-properties/input-properties';
 import { CONTROL_PROPS_TYPES } from '../utils/control-props-types';
 
 const defaultSettings = {
@@ -23,10 +23,9 @@ export default class InputElement extends InputControl {
   }
 
   setup() {
-    this.displayControlProps = new TextFieldDisplayProps(this.props);
     this.type = this.props.type || defaultSettings.type;
+    this.displayControlProps = new InputFieldDisplayProps(this.type, this.props);
     if (this.type === 'radio') {
-      delete this.displayControlProps.props[CONTROL_PROPS_TYPES.PLACEHOLDER];
       this.attr['class'] = 'form-check-input';
       this.id = this.props.id;
     }
