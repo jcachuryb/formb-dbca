@@ -3,19 +3,21 @@ import ControlProp from './control-prop';
 
 export default class BaseControlProps {
   props = {};
+  initialProps = {};
 
-  constructor(propsList = []) {
+  constructor(propsList = [], customPropsStore) {
     for (let i = 0; i < propsList.length; i++) {
       const prop = propsList[i];
-      let cp = new ControlProp(prop);
-      this.props[cp.prop.name] = cp;
+      let cp = new ControlProp(prop, customPropsStore);
+      this.props[prop] = cp;
     }
   }
 
   fillInProps(hostProps) {
     if (!hostProps) return;
+    this.initialProps = hostProps;
     for (const key in this.props) {
-      if (this.props.hasOwnProperty(key)) {
+      if (hostProps[key] !== undefined && this.props.hasOwnProperty(key)) {
         this.props[key].prop.value = hostProps[key];
       }
     }
@@ -33,7 +35,7 @@ export default class BaseControlProps {
 
   modifyProp(propName, value) {
     if (this.props[propName]) {
-      this.props[propName].value = value;
+      this.props[propName].prop.value = value;
     }
   }
 

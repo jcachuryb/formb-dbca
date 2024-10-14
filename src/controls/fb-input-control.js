@@ -4,6 +4,7 @@ import Label from './elements/basics/label';
 import Control from '../js/fb-control';
 import { markup } from '../js/utils';
 import { CONTROL_PROPS_TYPES } from './utils/control-props-types';
+import { BasicDataProperties } from './config-properties/data-properties';
 
 function extractLabelProps(props = {}) {
   const labelProps = {};
@@ -29,6 +30,7 @@ export default class InputControl extends Control {
 
   _basicSetup() {
     this.container_class = this.props?.container_class || this.container_class;
+    this.dataControlProps = new BasicDataProperties({});
   }
 
   setup() {

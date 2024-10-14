@@ -35,7 +35,6 @@ export default class RadioButton extends InputControl {
   setup() {
     this.name = 'rb-' + generateRandomId();
     this.displayControlProps = new RadioDisplayProps(this.props);
-    console.log('Radio setup:', this.displayControlProps.getPropsValues());
     this.options = [];
     const opts = this.props.options;
 
@@ -62,13 +61,10 @@ export default class RadioButton extends InputControl {
       );
       this.options.push(el);
     }
-    console.log('Radio setup end:', this.displayControlProps.getPropsValues());
   }
 
   renderControl() {
-    console.log('Render Radio setup:', this.displayControlProps.getPropsValues());
     const props = this.displayControlProps.getPropsValues();
-    console.log('Radio Props:', props);
     return this.render({
       id: this.id,
       name: this.props.name,

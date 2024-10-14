@@ -6,7 +6,6 @@ import { propertiesStore } from './predefined/props-store';
 const allProps = {
   ...propertiesStore,
   ...dataPropertiesStore,
-  ...datasourceDataPropertiesStore,
 };
 
 export default class ControlProp {
@@ -19,8 +18,8 @@ export default class ControlProp {
   /* options */
   /* value */
 
-  constructor(type) {
-    this.prop = { ...allProps[type] };
+  constructor(type, customPropsStore) {
+    this.prop = customPropsStore !== undefined ? { ...customPropsStore[type] } : { ...allProps[type] };
     this.id = `cp-${this.prop.name}`;
   }
 
@@ -54,7 +53,7 @@ export default class ControlProp {
       $(`#${this.id}`).on('change', { context, prop: this.prop }, cb);
     }
 
-    if (this.prop.name === CONTROL_PROPS_TYPES.CUSTOM_CLASS) {
+    if (this.prop.name === CONTROL_PROPS_TYPES.CUSTOM_CLASS || this.prop.type === 'select') {
       $(`#${this.id}`).on('change', { context, prop: this.prop }, cb);
     } else if (this.prop.type === 'string') {
       $(`#${this.id}`).on('input', { context, prop: this.prop }, cb);
@@ -67,16 +66,16 @@ function _renderProp(basicProps, options = [], required = false) {
   const inputType = type === 'boolean' ? 'checkbox' : type === 'string' ? 'text' : type;
 
   if (inputType === 'select') {
-    const selectEl = markup('select', '', { id, required, class: 'form-control' });
+    const selectEl = markup('select', '', { id, required, class: 'form-select' });
     options.forEach((option) => {
       const optionEl = document.createElement('option');
       for (const key in option) {
         if (option.hasOwnProperty(key)) {
           optionEl[key] = option[key];
-          if (key === value) {
-            optionEl.selected = true;
-          }
         }
+      }
+      if (optionEl['value'] === value) {
+        optionEl.selected = true;
       }
       selectEl.appendChild(optionEl);
     });
@@ -88,6 +87,10 @@ function _renderProp(basicProps, options = [], required = false) {
       checkboxProps.checked = value;
     }
     return markup('input', '', checkboxProps);
+  }
+
+  if (inputType === 'array') {
+    return markup('h3', 'Array type here');
   }
 
   return markup('input', '', { id, type: inputType, value, placeholder, required, class: 'form-control' });

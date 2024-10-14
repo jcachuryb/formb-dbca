@@ -10,6 +10,11 @@ const DEFAULT_VALUE_PROPS = {
   value: '',
 };
 
+export const DATASOURCE_VALUES = {
+  VALUES: 'values',
+  URL: 'url',
+};
+
 export const dataPropertiesStore = {
   [CONTROL_DATA_PROPS_TYPES.DATASOURCE]: {
     name: 'dataSource',
@@ -18,8 +23,8 @@ export const dataPropertiesStore = {
     placeholder: 'Select a data source',
     required: true,
     options: [
-      { text: 'Values', value: 'values' },
-      { text: 'URL', value: 'url' },
+      { text: 'Values', value: DATASOURCE_VALUES.VALUES },
+      { text: 'URL', value: DATASOURCE_VALUES.URL },
     ],
     value: 'values',
   },
@@ -36,7 +41,8 @@ export const dataPropertiesStore = {
 };
 
 export const datasourceDataPropertiesStore = {
-  values: {
+  [DATASOURCE_VALUES.VALUES]: {
+    [DATASOURCE_PROPS_TYPES.DEFAULT_VALUE]: { ...DEFAULT_VALUE_PROPS },
     [DATASOURCE_PROPS_TYPES.VALUES]: {
       name: 'values',
       title: 'Enter Values',
@@ -66,10 +72,9 @@ export const datasourceDataPropertiesStore = {
       options: undefined,
       value: '',
     },
-    [DATASOURCE_PROPS_TYPES.DEFAULT_VALUE]: { ...DEFAULT_VALUE_PROPS },
   },
-  url: {
-    [CONTROL_DATA_PROPS_TYPES.URL]: {
+  [DATASOURCE_VALUES.URL]: {
+    [DATASOURCE_PROPS_TYPES.URL]: {
       name: 'url',
       title: 'URL',
       type: 'string',
@@ -78,14 +83,6 @@ export const datasourceDataPropertiesStore = {
       options: undefined,
       value: '',
     },
-    [DATASOURCE_PROPS_TYPES.DEFAULT_VALUE]: {
-      name: 'defaultValue',
-      title: 'Default Value',
-      type: 'string',
-      placeholder: 'Enter a default value',
-      required: false,
-      options: undefined,
-      value: '',
-    },
+    [DATASOURCE_PROPS_TYPES.DEFAULT_VALUE]: { ...DEFAULT_VALUE_PROPS },
   },
 };
